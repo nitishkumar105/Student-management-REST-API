@@ -6,8 +6,6 @@ import com.example.REST_API.dto.StudentRegisterDto;
 import com.example.REST_API.mapper.Mapping;
 import com.example.REST_API.repository.StudentRepository;
 import com.example.REST_API.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,4 +37,5 @@ public class StudentServiceImpl implements StudentService {
         Student savedStudent = studentRepository.save(student);
         return Mapping.studentToStudentRegisterDto(savedStudent);
     }
+
 }

@@ -5,7 +5,10 @@ import com.example.REST_API.dto.StudentInfoDto;
 import com.example.REST_API.dto.StudentRegisterDto;
 import com.example.REST_API.repository.StudentRepository;
 import com.example.REST_API.service.StudentService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +25,17 @@ public class StudentController {
 //
 //    }
           @GetMapping
-          public List<StudentInfoDto> getAllStudents() {
-              return studentService.getAllStudent();  // for this to work, modify service method as discussed earlier
+          public ResponseEntity<List<StudentInfoDto>> getAllStudents() {
+              List<StudentInfoDto> studentInfoDto= studentService.getAllStudent();
+              return ResponseEntity.ok(studentInfoDto);
           }
 
          @PostMapping("/register")
-         public StudentRegisterDto registerStudent(@RequestBody StudentRegisterDto studentRegisterDto){
-             return   studentService.register(studentRegisterDto);
+         public ResponseEntity<StudentRegisterDto> registerStudent(@RequestBody StudentRegisterDto studentRegisterDto){
+             StudentRegisterDto studentRegisterDto1=  studentService.register(studentRegisterDto);
+             return ResponseEntity
+                     .status(HttpStatus.CREATED)      // 201 Created
+                     .body(studentRegisterDto);
          }
 
 }
