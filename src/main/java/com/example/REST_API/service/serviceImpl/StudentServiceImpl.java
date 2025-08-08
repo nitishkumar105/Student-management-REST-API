@@ -1,0 +1,42 @@
+package com.example.REST_API.service.serviceImpl;
+
+import com.example.REST_API.bean.Student;
+import com.example.REST_API.dto.StudentInfoDto;
+import com.example.REST_API.dto.StudentRegisterDto;
+import com.example.REST_API.mapper.Mapping;
+import com.example.REST_API.repository.StudentRepository;
+import com.example.REST_API.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+
+       StudentRepository studentRepository;
+
+    @Override
+    public List<StudentInfoDto> getAllStudent() {
+
+        List<Student> students = studentRepository.findAll();
+        return students.stream()
+                .map(Mapping::studentToStudentInfoDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentRegisterDto register(StudentRegisterDto studentRegisterDto) {
+        Student student = Mapping.studentRegisterDtoToStudent(studentRegisterDto);
+        Student savedStudent = studentRepository.save(student);
+        return Mapping.studentToStudentRegisterDto(savedStudent);
+    }
+}
