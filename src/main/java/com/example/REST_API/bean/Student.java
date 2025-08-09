@@ -1,8 +1,6 @@
 package com.example.REST_API.bean;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +16,8 @@ import org.springframework.context.annotation.Primary;
 public class Student {
 
         @Id
-      private    int id;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+      private   Long id;
       private String name;
       private  String email;
       private String password;

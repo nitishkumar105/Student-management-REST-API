@@ -3,7 +3,6 @@ package com.example.REST_API.mapper;
 import com.example.REST_API.bean.Student;
 import com.example.REST_API.dto.StudentInfoDto;
 import com.example.REST_API.dto.StudentRegisterDto;
-import org.hibernate.tool.schema.spi.SchemaTruncator;
 
 public class Mapping {
 
@@ -14,9 +13,10 @@ public class Mapping {
            return new StudentInfoDto(student.getId(), student.getName(), student.getEmail());
      }
       public static Student studentRegisterDtoToStudent(StudentRegisterDto studentRegisterDto){
-          return new Student(studentRegisterDto.getId(),studentRegisterDto.getName(),studentRegisterDto.getEmail(),studentRegisterDto.getPassword());
+          return new Student(null,studentRegisterDto.getName(),studentRegisterDto.getEmail(),studentRegisterDto.getPassword());
       }
-       public static Student studentInfoDtoToStudent(StudentInfoDto studentInfoDto){
-          return new Student(studentInfoDto.getId(),studentInfoDto.getName(),studentInfoDto.getEmail(), null  );
-       }
+
+
+
+
 }
