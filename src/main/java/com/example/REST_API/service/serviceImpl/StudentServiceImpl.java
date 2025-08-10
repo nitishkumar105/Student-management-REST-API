@@ -1,6 +1,7 @@
 package com.example.REST_API.service.serviceImpl;
 
 import com.example.REST_API.bean.Student;
+import com.example.REST_API.dto.LoginWithEmailDto;
 import com.example.REST_API.dto.StudentInfoDto;
 import com.example.REST_API.dto.StudentLoginDto;
 import com.example.REST_API.dto.StudentRegisterDto;
@@ -49,6 +50,14 @@ public class StudentServiceImpl implements StudentService {
         ).map(Mapping::studentToStudentInfoDto);
     }
 
+    @Override
+    public Optional<StudentInfoDto> loginWithEmail(LoginWithEmailDto loginWithEmailDto) {
+          return studentRepository.findByEmailAndPassword(
+                  loginWithEmailDto.getEmail(),
+                  loginWithEmailDto.getPassword())
+                  .map(Mapping::studentToStudentInfoDto);
+
+    }
 
 
 }

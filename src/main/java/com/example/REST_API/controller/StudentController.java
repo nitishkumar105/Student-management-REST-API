@@ -1,6 +1,7 @@
 package com.example.REST_API.controller;
 
 import com.example.REST_API.bean.Student;
+import com.example.REST_API.dto.LoginWithEmailDto;
 import com.example.REST_API.dto.StudentInfoDto;
 import com.example.REST_API.dto.StudentLoginDto;
 import com.example.REST_API.dto.StudentRegisterDto;
@@ -19,30 +20,31 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/student")
 public class StudentController {
-         //  @Autowired
-        private final StudentService studentService;
-             public StudentController(StudentService studentService){
-                 this.studentService=studentService;
-             }
-//    @GetMapping("/student")
+    //  @Autowired
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    //    @GetMapping("/student")
 //    public Student getStudent(){
 //         return new Student(1,"nitish","nk@gmail.com","nk@123");
 //
 //    }
-          @GetMapping
-          public ResponseEntity<List<StudentInfoDto>> getAllStudents() {
-              List<StudentInfoDto> studentInfoDto= studentService.getAllStudent();
-              return ResponseEntity.ok(studentInfoDto);
-          }
+    @GetMapping
+    public ResponseEntity<List<StudentInfoDto>> getAllStudents() {
+        List<StudentInfoDto> studentInfoDto = studentService.getAllStudent();
+        return ResponseEntity.ok(studentInfoDto);
+    }
 
     @PostMapping("/register")
-    public ResponseEntity<StudentRegisterDto> registerStudent(@RequestBody StudentRegisterDto studentRegisterDto){
-        StudentRegisterDto studentRegisterDto1=  studentService.register(studentRegisterDto);
+    public ResponseEntity<StudentRegisterDto> registerStudent(@RequestBody StudentRegisterDto studentRegisterDto) {
+        StudentRegisterDto studentRegisterDto1 = studentService.register(studentRegisterDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)      // 201 Created
                 .body(studentRegisterDto1);
     }
-
 
 
     @PostMapping("/login")
@@ -54,5 +56,14 @@ public class StudentController {
                         .body(null)); // No type conflict
     }
 
+     @PostMapping("/loginWithEmail")
+    public ResponseEntity<StudentInfoDto> loginWitheEmail( @RequestBody LoginWithEmailDto loginWithEmailDto) {
+        return studentService.loginWithEmail(loginWithEmailDto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body(null));
 
+    }
 }
+

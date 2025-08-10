@@ -1,6 +1,7 @@
 package com.example.REST_API.service;
 
 import com.example.REST_API.bean.Student;
+import com.example.REST_API.dto.LoginWithEmailDto;
 import com.example.REST_API.dto.StudentInfoDto;
 import com.example.REST_API.dto.StudentLoginDto;
 import com.example.REST_API.dto.StudentRegisterDto;
@@ -14,4 +15,5 @@ public interface StudentService {
        List<StudentInfoDto> getAllStudent();
        StudentRegisterDto register(StudentRegisterDto studentRegisterDto);
         Optional<StudentInfoDto> login(StudentLoginDto studentLoginDto);
+        Optional<StudentInfoDto> loginWithEmail(LoginWithEmailDto loginWithEmailDto);
 }
