@@ -8,6 +8,7 @@ import com.example.REST_API.dto.StudentRegisterDto;
 import com.example.REST_API.mapper.Mapping;
 import com.example.REST_API.repository.StudentRepository;
 import com.example.REST_API.service.StudentService;
+import org.springframework.aop.ThrowsAdvice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,11 +53,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Optional<StudentInfoDto> loginWithEmail(LoginWithEmailDto loginWithEmailDto) {
-          return studentRepository.findByEmailAndPassword(
-                  loginWithEmailDto.getEmail(),
-                  loginWithEmailDto.getPassword())
-                  .map(Mapping::studentToStudentInfoDto);
-
+        return studentRepository
+                .findByEmailAndPassword(loginWithEmailDto.getEmail(), loginWithEmailDto.getPassword())
+                .map(Mapping::studentToStudentInfoDto); // returns Optional<StudentInfoDto>
     }
 
 

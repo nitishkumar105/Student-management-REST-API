@@ -29,7 +29,7 @@ public class StudentController {
 
     //    @GetMapping("/student")
 //    public Student getStudent(){
-//         return new Student(1,"nitish","nk@gmail.com","nk@123");
+//         return new Student(1,"Nitish","nk@gmail.com","nk@123");
 //
 //    }
     @GetMapping
@@ -56,14 +56,11 @@ public class StudentController {
                         .body(null)); // No type conflict
     }
 
-     @PostMapping("/loginWithEmail")
-    public ResponseEntity<StudentInfoDto> loginWitheEmail( @RequestBody LoginWithEmailDto loginWithEmailDto) {
+    @PostMapping("/loginWithEmail")
+    public ResponseEntity<StudentInfoDto> loginWithEmail(@RequestBody LoginWithEmailDto loginWithEmailDto) {
         return studentService.loginWithEmail(loginWithEmailDto)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity
-                        .status(HttpStatus.NOT_FOUND)
-                        .body(null));
-
+                .map(ResponseEntity::ok) // if present
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)); // if not present
     }
 }
 
